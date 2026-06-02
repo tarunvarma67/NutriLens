@@ -26,19 +26,36 @@ nav{
 }
 
 .hero{
-    text-align:center;
-
-    padding:100px 20px;
+    padding:80px 60px;
 }
 
-.hero h1{
-    font-size:48px;
+.hero-content{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.hero-text{
+    width:50%;
+}
+
+.hero-text h1{
+    font-size:52px;
     margin-bottom:20px;
 }
 
-.hero p{
+.hero-text p{
     font-size:20px;
     margin-bottom:30px;
+}
+
+.hero-image{
+    font-size:120px;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:15px;
 }
 
 .btn{
@@ -48,6 +65,18 @@ nav{
     padding:12px 25px;
 
     text-decoration:none;
+    border-radius:5px;
+}
+
+.btn-secondary{
+    padding:12px 25px;
+
+    border:2px solid #4CAF50;
+
+    text-decoration:none;
+
+    color:#4CAF50;
+
     border-radius:5px;
 }
 
