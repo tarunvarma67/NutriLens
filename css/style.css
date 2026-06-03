@@ -242,6 +242,8 @@ footer{
     cursor:pointer;
 
     font-size:16px;
+    
+    transition: 0.3s;
 }
 
 .form-card p{
@@ -249,4 +251,20 @@ footer{
     text-align:center;
 
     margin-top:20px;
+}
+
+.form-subtitle{
+
+    text-align:center;
+
+    color:#666;
+
+    margin-bottom:20px;
+
+    font-size:14px;
+}
+
+.form-card button:hover {
+
+    transform: translateY(-2px);
 }
