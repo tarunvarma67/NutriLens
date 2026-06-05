@@ -4,10 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - NutriLens</title>
+    <title>Sign Up - NutriLens</title>
 
-    <link rel="stylesheet" href="css/style.css">
-</head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
 <body>
 
@@ -15,13 +14,18 @@
 
         <div class="form-card">
 
-            <h2>Welcome Back 👋</h2>
+            <h2>Create Account 🚀</h2>
 
             <p class="form-subtitle">
-                Login to continue tracking your nutrition journey.
+                Join NutriLens and start building healthier habits.
             </p>
 
             <form>
+
+                <input
+                    type="text"
+                    placeholder="Full Name"
+                    required>
 
                 <input
                     type="email"
@@ -31,17 +35,18 @@
                 <input
                     type="password"
                     placeholder="Password"
+                    minlength="8"
                     required>
 
                 <button type="submit">
-                    Login
+                    Create Account
                 </button>
 
             </form>
 
             <p>
-                Don't have an account?
-                <a href="signup.html">Sign Up</a>
+                Already have an account?
+                <a href="/login">Login</a>
             </p>
 
         </div>

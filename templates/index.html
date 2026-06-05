@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NutriLens AI</title>
 
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
 
@@ -15,10 +15,10 @@
         </div>
 
         <div class="nav-links">
-            <a href="index.html">Home</a>
+            <a href="/">Home</a>
             <a href="#features">Features</a>
-            <a href="login.html">Login</a>
-            <a href="signup.html">Sign Up</a>
+            <a href="/login">Login</a>
+            <a href="/signup">Sign Up</a>
         </div>
     </nav>
 
@@ -37,7 +37,7 @@
 
                 <div class="hero-buttons">
 
-                    <a href="signup.html" class="btn">
+                    <a href="/signup" class="btn">
                         Start Tracking Free
                     </a>
 
