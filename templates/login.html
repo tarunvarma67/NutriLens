@@ -21,18 +21,20 @@
                 Login to continue tracking your nutrition journey.
             </p>
 
-            <form>
+            <form method="POST">
 
                 <input
-                    type="email"
-                    placeholder="Email Address"
+                    type="text"
+                    name="username"
+                    placeholder="Username"
                     required>
 
                 <input
                     type="password"
+                    name="password"
                     placeholder="Password"
-                    required>
-
+                    required>   
+                    
                 <button type="submit">
                     Login
                 </button>

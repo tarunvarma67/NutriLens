@@ -1,17 +1,45 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session, redirect, url_for
 import sqlite3
 import re
 
-from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
+app.secret_key = "nutrilens_super_secret_key_2026"
 
 @app.route("/")
 def home():
     return render_template("index.html")
 
-@app.route("/login")
+@app.route("/login", methods=["GET", "POST"])
 def login():
+
+    if request.method == "POST":
+
+        username = request.form["username"]
+        password = request.form["password"]
+
+        connection = sqlite3.connect("nutrilens.db")
+        cursor = connection.cursor()
+
+        cursor.execute(
+            "SELECT user_id, username, password_hash FROM users WHERE username=?",
+            (username,)
+        )
+
+        user = cursor.fetchone()
+
+        connection.close()
+
+        if user and check_password_hash(user[2], password):
+
+            session["user_id"] = user[0]
+            session["username"] = user[1]
+
+            return redirect("/dashboard")
+
+        return "Invalid Username or Password"
+
     return render_template("login.html")
 
 @app.route("/signup", methods=["GET", "POST"])
@@ -84,5 +112,27 @@ def signup():
 
     return render_template("signup.html")
 
+@app.route("/dashboard")
+def dashboard():
+
+    if "user_id" not in session:
+        return redirect("/login")
+
+    return f"""
+    <h1>Welcome {session['username']} 👋</h1>
+    <p>User ID: {session['user_id']}</p>
+
+    <br>
+
+    <a href="/logout">Logout</a>
+    """
+
+@app.route("/logout")
+def logout():
+
+    session.clear()
+
+    return redirect("/login")
+    
 if __name__ == "__main__":
     app.run(debug=True)
