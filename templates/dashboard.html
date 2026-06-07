@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - NutriLens</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<div class="dashboard-container">
+
+    <div class="dashboard-header">
+        <h2>Welcome, {{ username }} 👋</h2>
+        <p class="dashboard-date">{{ current_date }}</p>
+    </div>
+
+    <div class="calorie-card">
+        <h1>1850</h1>
+        <p>Calories Consumed Today</p>
+
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+
+        <span>Goal: 2200 kcal</span>
+    </div>
+
+    <h3 class="section-title">
+        Today's Progress
+    </h3>
+    <div class="mini-cards">
+
+        <div class="stats-card">
+            <h3>💪 Protein</h3>
+            <p>95g / 120g</p>
+        </div>
+
+        <div class="stats-card">
+            <h3>💧 Water</h3>
+            <p>2.1L / 3L</p>
+        </div>
+
+    </div>
+
+    <div class="quick-actions">
+
+        <h3>Quick Actions</h3>
+
+        <button class="primary-btn">
+            📷 Scan Meal
+        </button>
+
+        <button class="secondary-btn">
+            🍽 Add Food
+        </button>
+
+        <button class="secondary-btn">
+            📊 View History
+        </button>
+
+    </div>
+
+</div>
+
+<div class="bottom-nav">
+
+    <div>🏠<br>Home</div>
+    <div>📷<br>Scan</div>
+    <div>📊<br>History</div>
+    <div>👤<br>Profile</div>
+
+</div>

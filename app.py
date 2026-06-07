@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, session, redirect, url_for
 import sqlite3
 import re
-
+from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
@@ -118,14 +118,13 @@ def dashboard():
     if "user_id" not in session:
         return redirect("/login")
 
-    return f"""
-    <h1>Welcome {session['username']} 👋</h1>
-    <p>User ID: {session['user_id']}</p>
+    current_date = datetime.now().strftime("%A, %B %d")
 
-    <br>
-
-    <a href="/logout">Logout</a>
-    """
+    return render_template(
+        "dashboard.html",
+        username=session["username"],
+        current_date=current_date
+    )
 
 @app.route("/logout")
 def logout():
@@ -133,6 +132,6 @@ def logout():
     session.clear()
 
     return redirect("/login")
-    
+
 if __name__ == "__main__":
     app.run(debug=True)
