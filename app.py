@@ -108,8 +108,10 @@ def signup():
         connection.commit()
         connection.close()
 
-        return f"Account Created Successfully! Your User ID is {user_id}"
+        session["user_id"] = user_id
+        session["username"] = username
 
+        return redirect("/onboarding")
     return render_template("signup.html")
 
 @app.route("/dashboard")
@@ -133,5 +135,56 @@ def logout():
 
     return redirect("/login")
 
+@app.route("/onboarding")
+def onboarding():
+
+    if "user_id" not in session:
+        return redirect("/login")
+
+    return render_template("onboarding_welcome.html")
+@app.route("/profile-form", methods=["GET", "POST"])
+def profile_form():
+
+    if "user_id" not in session:
+        return redirect("/login")
+
+    if request.method == "POST":
+
+        age = request.form["age"]
+        gender = request.form["gender"]
+        height = request.form["height"]
+        weight = request.form["weight"]
+        activity_level = request.form["activity_level"]
+        goal = request.form["goal"]
+
+        connection = sqlite3.connect("nutrilens.db")
+        cursor = connection.cursor()
+
+        cursor.execute("""
+        UPDATE users
+        SET age=?,
+            gender=?,
+            height=?,
+            weight=?,
+            activity_level=?,
+            goal=?
+        WHERE user_id=?
+        """, (
+            age,
+            gender,
+            height,
+            weight,
+            activity_level,
+            goal,
+            session["user_id"]
+        ))
+
+        connection.commit()
+        connection.close()
+
+        return redirect("/dashboard")
+
+    return render_template("profile_form.html")
+
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, port=5001)

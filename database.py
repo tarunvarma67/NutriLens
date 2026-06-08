@@ -6,13 +6,39 @@ cursor = connection.cursor()
 
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS users (
+
     id INTEGER PRIMARY KEY AUTOINCREMENT,
+
     user_id TEXT UNIQUE,
-    full_name TEXT NOT NULL,
-    username TEXT UNIQUE NOT NULL,
-    email TEXT UNIQUE NOT NULL,
-    password_hash TEXT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+
+    full_name TEXT,
+
+    username TEXT UNIQUE,
+
+    email TEXT UNIQUE,
+
+    password_hash TEXT,
+
+    age INTEGER,
+
+    gender TEXT,
+
+    height REAL,
+
+    weight REAL,
+
+    goal TEXT,
+
+    activity_level TEXT,
+
+    daily_calories INTEGER,
+
+    protein_goal INTEGER,
+
+    water_goal REAL,
+
+    onboarding_completed INTEGER DEFAULT 0
+
 )
 """)
 

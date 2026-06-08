@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome - NutriLens</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<div class="onboarding-container">
+
+    <h1>Welcome to NutriLens 👋</h1>
+
+    <p>
+        Let's build your personalized nutrition profile.
+    </p>
+
+    <div class="onboarding-card">
+
+        <h3>Why do we need this?</h3>
+
+        <p>
+            We'll use your profile information to calculate
+            daily calorie, protein and hydration goals.
+        </p>
+
+    </div>
+
+    <a href="/profile-form" class="primary-btn">
+        Get Started
+    </a>
+
+</div>
+
+</body>
+</html>
