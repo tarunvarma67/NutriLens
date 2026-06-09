@@ -120,12 +120,36 @@ def dashboard():
     if "user_id" not in session:
         return redirect("/login")
 
+    connection = sqlite3.connect("nutrilens.db")
+    cursor = connection.cursor()
+
+    cursor.execute("""
+    SELECT daily_calories,
+           protein_goal,
+           fat_goal,
+           carb_goal,
+           fiber_goal,
+           water_goal
+    FROM users
+    WHERE user_id=?
+    """, (session["user_id"],))
+
+    user = cursor.fetchone()
+
+    connection.close()
+
     current_date = datetime.now().strftime("%A, %B %d")
 
     return render_template(
         "dashboard.html",
         username=session["username"],
-        current_date=current_date
+        current_date=current_date,
+        daily_calories=user[0],
+        protein_goal=user[1],
+        fat_goal=user[2],
+        carb_goal=user[3],
+        fiber_goal=user[4],
+        water_goal=user[5]
     )
 
 @app.route("/logout")
@@ -142,6 +166,7 @@ def onboarding():
         return redirect("/login")
 
     return render_template("onboarding_welcome.html")
+
 @app.route("/profile-form", methods=["GET", "POST"])
 def profile_form():
 
@@ -150,12 +175,74 @@ def profile_form():
 
     if request.method == "POST":
 
-        age = request.form["age"]
+        age = int(request.form["age"])
         gender = request.form["gender"]
-        height = request.form["height"]
-        weight = request.form["weight"]
+        height = float(request.form["height"])
+        weight = float(request.form["weight"])
         activity_level = request.form["activity_level"]
         goal = request.form["goal"]
+
+        # BMR
+        if gender == "Male":
+            bmr = (
+                (10 * weight)
+                + (6.25 * height)
+                - (5 * age)
+                + 5
+            )
+        else:
+            bmr = (
+                (10 * weight)
+                + (6.25 * height)
+                - (5 * age)
+                - 161
+            )
+
+        # TDEE
+        if activity_level == "Sedentary":
+            tdee = bmr * 1.2
+
+        elif activity_level == "Light":
+            tdee = bmr * 1.375
+
+        elif activity_level == "Moderate":
+            tdee = bmr * 1.55
+
+        else:
+            tdee = bmr * 1.725
+
+        # Goal adjustment
+        daily_calories = tdee
+
+        if goal == "Lose Weight":
+            daily_calories -= 300
+
+        elif goal == "Gain Weight":
+            daily_calories += 300
+
+        daily_calories = round(daily_calories)
+
+        # Macros
+        protein_goal = round((daily_calories * 0.25) / 4)
+        fat_goal = round((daily_calories * 0.30) / 9)
+        carb_goal = round((daily_calories * 0.45) / 4)
+
+        # Fiber
+        fiber_goal = round((daily_calories / 1000) * 14)
+
+        # Water
+        water_goal = (weight * 35) / 1000
+
+        if activity_level == "Light":
+            water_goal += 0.25
+
+        elif activity_level == "Moderate":
+            water_goal += 0.50
+
+        elif activity_level == "Very Active":
+            water_goal += 0.75
+
+        water_goal = round(water_goal, 1)
 
         connection = sqlite3.connect("nutrilens.db")
         cursor = connection.cursor()
@@ -167,7 +254,14 @@ def profile_form():
             height=?,
             weight=?,
             activity_level=?,
-            goal=?
+            goal=?,
+            daily_calories=?,
+            protein_goal=?,
+            fat_goal=?,
+            carb_goal=?,
+            fiber_goal=?,
+            water_goal=?,
+            onboarding_completed=1
         WHERE user_id=?
         """, (
             age,
@@ -176,6 +270,12 @@ def profile_form():
             weight,
             activity_level,
             goal,
+            daily_calories,
+            protein_goal,
+            fat_goal,
+            carb_goal,
+            fiber_goal,
+            water_goal,
             session["user_id"]
         ))
 
@@ -185,6 +285,5 @@ def profile_form():
         return redirect("/dashboard")
 
     return render_template("profile_form.html")
-
 if __name__ == "__main__":
     app.run(debug=True, port=5001)

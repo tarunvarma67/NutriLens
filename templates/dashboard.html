@@ -18,14 +18,14 @@
     </div>
 
     <div class="calorie-card">
-        <h1>1850</h1>
+        <h1>{{ daily_calories }}</h1>
         <p>Calories Consumed Today</p>
 
         <div class="progress-bar">
             <div class="progress-fill"></div>
         </div>
 
-        <span>Goal: 2200 kcal</span>
+        <span>Goal: {{ daily_calories }} kcal</span>
     </div>
 
     <h3 class="section-title">
@@ -35,12 +35,26 @@
 
         <div class="stats-card">
             <h3>💪 Protein</h3>
-            <p>95g / 120g</p>
+            <p>0g / {{ protein_goal }}g</p>
         </div>
 
         <div class="stats-card">
             <h3>💧 Water</h3>
-            <p>2.1L / 3L</p>
+            <p>0L / {{ water_goal }}L</p>
+        </div>
+        <div class="stats-card">
+            <h3>🥑 Fat</h3>
+            <p>{{ fat_goal }}g</p>
+        </div>
+
+        <div class="stats-card">
+            <h3>🍞 Carbs</h3>
+            <p>{{ carb_goal }}g</p>
+        </div>
+
+        <div class="stats-card">
+            <h3>🌾 Fiber</h3>
+            <p>{{ fiber_goal }}g</p>
         </div>
 
     </div>
