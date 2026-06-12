@@ -582,3 +582,101 @@ footer{
 
     margin-bottom:25px;
 }
+.progress-card{
+    background:white;
+    border-radius:20px;
+    padding:20px;
+    margin-top:20px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.05);
+}
+
+.progress-content{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.rings-section{
+    position:relative;
+    width:120px;
+    height:120px;
+}
+
+.ring{
+    border-radius:50%;
+    position:absolute;
+}
+.calories-ring{
+    width:120px;
+    height:120px;
+    background:
+    conic-gradient(
+        #4CAF50 0deg 300deg,
+        #e5e7eb 300deg 360deg
+    );
+}
+
+.protein-ring{
+    width:90px;
+    height:90px;
+    top:15px;
+    left:15px;
+    background:
+    conic-gradient(
+        #26a69a 0deg 250deg,
+        #e5e7eb 250deg 360deg
+    );
+}
+
+.water-ring{
+    width:60px;
+    height:60px;
+    top:30px;
+    left:30px;
+    background:
+    conic-gradient(
+        #b76e79 0deg 200deg,
+        #e5e7eb 200deg 360deg
+    );
+}
+.trend-card{
+    background:white;
+    border-radius:20px;
+    padding:20px;
+    margin-top:20px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.05);
+}
+
+.trend-bars{
+    display:flex;
+    gap:6px;
+    margin-top:15px;
+}
+
+.bar{
+    flex:1;
+    height:20px;
+    background:#d1d5db;
+    border-radius:6px;
+}
+
+.active{
+    background:#4CAF50;
+}
+.macro-pills{
+    display:flex;
+    gap:12px;
+    justify-content:space-between;
+}
+.macro-pill{
+    flex:1;
+    text-align:center;
+}
+.macro-pill{
+    background:white;
+    padding:12px;
+    border-radius:14px;
+    text-align:center;
+    flex:1;
+    box-shadow:0 2px 8px rgba(0,0,0,0.08);
+}

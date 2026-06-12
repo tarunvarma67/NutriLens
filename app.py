@@ -140,6 +140,16 @@ def dashboard():
 
     current_date = datetime.now().strftime("%A, %B %d")
 
+    daily_calories = user[0]
+    calories_consumed = 0
+
+    if daily_calories > 0:
+        calorie_percent = round(
+            (calories_consumed / daily_calories) * 100
+        )
+    else:
+        calorie_percent = 0
+
     return render_template(
         "dashboard.html",
         username=session["username"],
@@ -149,7 +159,9 @@ def dashboard():
         fat_goal=user[2],
         carb_goal=user[3],
         fiber_goal=user[4],
-        water_goal=user[5]
+        water_goal=user[5],
+        calorie_percent=calorie_percent,
+        calories_consumed=calories_consumed
     )
 
 @app.route("/logout")
@@ -211,24 +223,60 @@ def profile_form():
         else:
             tdee = bmr * 1.725
 
-        # Goal adjustment
+        # -------------------------
+        # GOAL ADJUSTMENT
+        # -------------------------
+
         daily_calories = tdee
 
         if goal == "Lose Weight":
-            daily_calories -= 300
+
+            daily_calories -= 500
+
+            protein_percent = 0.30
+            carb_percent = 0.40
+            fat_percent = 0.30
 
         elif goal == "Gain Weight":
-            daily_calories += 300
+
+            daily_calories += 500
+
+            protein_percent = 0.25
+            carb_percent = 0.50
+            fat_percent = 0.25
+
+        else:
+
+            protein_percent = 0.25
+            carb_percent = 0.45
+            fat_percent = 0.30
 
         daily_calories = round(daily_calories)
 
-        # Macros
-        protein_goal = round((daily_calories * 0.25) / 4)
-        fat_goal = round((daily_calories * 0.30) / 9)
-        carb_goal = round((daily_calories * 0.45) / 4)
+# -------------------------
+# MACROS
+# -------------------------
+
+        protein_goal = round(
+            (daily_calories * protein_percent) / 4
+        )
+
+        fat_goal = round(
+            (daily_calories * fat_percent) / 9
+        )
+
+        carb_goal = round(
+            (daily_calories * carb_percent) / 4
+        )
 
         # Fiber
         fiber_goal = round((daily_calories / 1000) * 14)
+        if goal == "Lose Weight":
+
+            fiber_goal = max(
+                fiber_goal,
+                30
+            )
 
         # Water
         water_goal = (weight * 35) / 1000

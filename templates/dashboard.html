@@ -18,11 +18,11 @@
     </div>
 
     <div class="calorie-card">
-        <h1>{{ daily_calories }}</h1>
+        <h1>0</h1>
         <p>Calories Consumed Today</p>
 
         <div class="progress-bar">
-            <div class="progress-fill"></div>
+            <div class="progress-fill"style="width: {{ calorie_percent }}%;"></div>
         </div>
 
         <span>Goal: {{ daily_calories }} kcal</span>
@@ -31,30 +31,73 @@
     <h3 class="section-title">
         Today's Progress
     </h3>
-    <div class="mini-cards">
+    <div class="progress-card">
 
-        <div class="stats-card">
-            <h3>💪 Protein</h3>
-            <p>0g / {{ protein_goal }}g</p>
+        <h3>Today's Progress</h3>
+
+        <div class="progress-content">
+
+            <div class="rings-section">
+
+                <div class="ring calories-ring"></div>
+                <div class="ring protein-ring"></div>
+                <div class="ring water-ring"></div>
+
+            </div>
+
+            <div class="progress-stats">
+
+                <p>
+                    🔥 {{ calories_consumed }} / {{ daily_calories }}
+                </p>
+
+                <p>
+                    💪 {{ protein_consumed }}g /
+                    {{ protein_goal }}g
+                </p>
+
+                <p>
+                    💧 {{ water_consumed }}L /
+                    {{ water_goal }}L
+                </p>
+
+            </div>
+
         </div>
 
-        <div class="stats-card">
-            <h3>💧 Water</h3>
-            <p>0L / {{ water_goal }}L</p>
-        </div>
-        <div class="stats-card">
-            <h3>🥑 Fat</h3>
-            <p>{{ fat_goal }}g</p>
+    </div>
+    <div class="macro-row">
+
+        <div class="macro-pill">
+             Fat
+            <span>0g / {{ fat_goal }}g</span>
         </div>
 
-        <div class="stats-card">
-            <h3>🍞 Carbs</h3>
-            <p>{{ carb_goal }}g</p>
+        <div class="macro-pill">
+             Carbs
+            <span>0g / {{ carb_goal }}g</span>
         </div>
 
-        <div class="stats-card">
-            <h3>🌾 Fiber</h3>
-            <p>{{ fiber_goal }}g</p>
+        <div class="macro-pill">
+             Fiber
+            <span>0g / {{ fiber_goal }}g</span>
+        </div>
+
+    </div>
+    <div class="trend-card">
+
+        <h3>Weekly Trend</h3>
+
+        <div class="trend-bars">
+
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar active"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+
         </div>
 
     </div>
