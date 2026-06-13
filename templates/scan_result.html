@@ -1,0 +1,18 @@
+<h2>Meal Analysis</h2>
+
+<img
+src="{{ url_for('static',
+filename=image_path) }}"
+width="300">
+
+<div>
+
+    <p>Calories: {{ calories }}</p>
+
+    <p>Protein: {{ protein }}g</p>
+
+    <p>Carbs: {{ carbs }}g</p>
+
+    <p>Fat: {{ fat }}g</p>
+
+</div>

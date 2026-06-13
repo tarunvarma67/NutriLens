@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template, request, session, redirect, url_for
 import sqlite3
 import re
@@ -331,7 +332,51 @@ def profile_form():
         connection.close()
 
         return redirect("/dashboard")
+@app.route("/scan-meal", methods=["GET", "POST"])
+def scan_meal():
 
+    if "user_id" not in session:
+        return redirect("/login")
+
+    if request.method == "POST":
+
+        image = request.files["meal_image"]
+
+        filename = image.filename
+
+        filepath = os.path.join(
+            "static/uploads",
+            filename
+        )
+
+        image.save(filepath)
+
+        return redirect(
+            url_for(
+                "scan_result",
+                filename=filename
+            )
+        )
+
+    return render_template(
+        "scan_meal.html"
+    )
     return render_template("profile_form.html")
+@app.route("/scan-result/<filename>")
+def scan_result(filename):
+
+    image_path = (
+        "uploads/" + filename
+    )
+
+    return render_template(
+        "scan_result.html",
+        image_path=image_path,
+
+        calories=650,
+        protein=35,
+        carbs=70,
+        fat=18
+    )
 if __name__ == "__main__":
     app.run(debug=True, port=5001)
